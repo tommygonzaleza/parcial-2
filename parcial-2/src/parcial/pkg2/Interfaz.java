@@ -162,7 +162,7 @@ public class Interfaz extends javax.swing.JFrame {
                 NodePila e = pila.getpTop();
                 if(e.getData()!= persona){
                     RBTree personaE = new RBTree();
-                    personaE.setRoot(e);
+                    personaE.setRoot((Node) e.getData());
                 }  
             }
             while(pila.isEmpty() == false){
