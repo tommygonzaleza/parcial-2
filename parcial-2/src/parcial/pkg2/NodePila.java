@@ -12,6 +12,7 @@ package parcial.pkg2;
 public class NodePila {
     private Object data;
     private NodePila pNext;
+    
     public NodePila(Object data){
         this.pNext=null;
         this.data=data;

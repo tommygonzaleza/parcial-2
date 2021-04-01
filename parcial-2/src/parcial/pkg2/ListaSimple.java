@@ -107,4 +107,108 @@ public class ListaSimple {
         }
     }
 
+    public void Encolar(Object data) {
+        NodePila newNode = new NodePila(data);
+        if (!Es_vacia()) {
+            first = newNode;
+            last = newNode;
+        } else {
+            NodePila aux = last;
+            aux.setpNext(newNode);
+            last = newNode;
+        }
+        size++;
+    }
+
+    public void Desencolar() {
+        if (!Es_vacia()) {
+            first = first.getpNext();
+            if (first == null) {
+                last = null;
+            }
+        }
+        size--;
+
+    }
+    public int Nivel(String a){
+        if (a.equals("+") && a.equals("-")) {
+            return 0;
+        }else if (a.equals("*")) {
+            return 1;
+        }else if (a.equals("/")) {
+            return 2;
+        }else if (a.equals("^")) {
+            return 3;
+        }else{
+            return -1;
+        }
+    }
+
+    public ListaSimple cambiar() {
+        Pila pila = new Pila();
+        ListaSimple cola = new ListaSimple();
+        NodePila aux = first;
+        while (!this.Es_vacia() && aux!=null) {
+            if (isNumeric((String.valueOf(aux.getData())))) {
+                cola.Insertar_final(aux.getData());
+            } else if (isLetter((String.valueOf(aux.getData())))) {
+                cola.Insertar_final(aux.getData());
+            } else if (aux.getData().equals("(")) {
+                pila.Push(aux.getData());
+            } else if (aux.getData().equals(")")) {
+                while (!pila.Es_vacia() && !pila.getpTop().equals("(")) {
+                    cola.Insertar_final(pila.getpTop());
+                    pila.Pop();
+                }
+                if (pila.getpTop().getData().equals(")")) {
+                    cola.Insertar_final(aux.getData());
+                    pila.Pop();
+                } else {
+                    System.out.println("Se ha detectado un error");
+                }
+                
+                
+            }else if (aux.getData().equals("+") || aux.getData().equals("*")
+                    ||aux.getData().equals("-") || aux.getData().equals("/"))
+                      {
+                
+                while(!pila.Es_vacia() && (Nivel(String.valueOf(pila.getpTop().getData()))>=Nivel(String.valueOf(aux.getData())))){
+                    cola.Insertar_final(aux.getData());
+                    pila.Pop();
+                }
+                pila.Push(aux.getData());
+            }
+            aux=aux.getpNext();
+
+        }
+        while(!pila.Es_vacia()){
+            cola.Insertar_final(aux.getData());
+            pila.Pop();
+        }
+        //pila.Empty();
+        return cola;
+    }
+
+    public boolean isNumeric(Object a) {
+        String b = String.valueOf(a);
+        for (int i = 0; i < b.length(); i++) {
+            if (!Character.isDigit(b.charAt(i))) {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    public boolean isLetter(Object a) {
+        String b = String.valueOf(a);
+        for (int i = 0; i < b.length(); i++) {
+            if (!Character.isLetter(b.charAt(i))) {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
 }
