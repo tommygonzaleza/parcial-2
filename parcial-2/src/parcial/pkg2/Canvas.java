@@ -51,10 +51,7 @@ public class Canvas extends JPanel {
         {}
         else {
             int EXTRA = n.nodosCompletos(n) * (ANCHO/2);
-            if(n.isRed()){
-                g.setColor(java.awt.Color.red);
-                
-            }
+            
             g.drawOval(x, y, DIAMETRO, DIAMETRO);
             g.setColor(java.awt.Color.black);
             

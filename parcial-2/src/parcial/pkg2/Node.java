@@ -12,19 +12,14 @@ package parcial.pkg2;
 public class Node {
     private Node left;
     private Node right;
-    private boolean red;
     private int data;
-    private  String nombre;
     private Node padre;
-    private String apellido;
     
-    public Node(String nombre, String apellido,int data){
+    
+    public Node(int data){
         
         this.left=null;
         this.right=null;
-        this.red=true;
-        this.nombre=nombre;
-        this.apellido=apellido;
         this.data=data;
         
         
@@ -61,16 +56,7 @@ public class Node {
     /**
      * @return the red
      */
-    public boolean isRed() {
-        return red;
-    }
-
-    /**
-     * @param red the red to set
-     */
-    public void setRed(boolean red) {
-        this.red = red;
-    }
+    
 
     /**
      * @return the data
@@ -110,33 +96,7 @@ public class Node {
         this.padre = padre;
     }
 
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-     * @return the apellido
-     */
-    public String getApellido() {
-        return apellido;
-    }
-
-    /**
-     * @param apellido the apellido to set
-     */
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
+    
     
     /**
      * Esta funcion devuelve si es hoja o no
