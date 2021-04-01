@@ -6,7 +6,9 @@
 package parcial.pkg2;
 
 import java.awt.Dimension;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -54,10 +56,63 @@ public class Interfaz extends javax.swing.JFrame {
         ventana.setVisible(true);
         return "Arbol mostrado.";
     }
+    public ListaSimple leer_txt(String filepath) {
+        ListaSimple data = new ListaSimple();
+        String[] expresion;
+        String line;
+        String clientes_txt = "";
+        String path = filepath;
+        File file = new File(path);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            } else {
+                FileReader fr = new FileReader(file);
+                BufferedReader br = new BufferedReader(fr);
+                while ((line = br.readLine()) != null) {
+                    if (!line.isEmpty()) {
+                        clientes_txt += line + "\n";
+                    }
+
+                }
+                if (!"".equals(clientes_txt)) {
+                    String[] clientes_split = clientes_txt.split("\n");
+                    //System.out.println(clientes_split[0]);
+                    
+                    
+                    //System.out.println(clientes_split[0]);
+                    for (int i = 0; i < clientes_split[0].length(); i++) {
+                        data.Insertar_final(clientes_split[0].charAt(i));
+                        
+                        //System.out.println(clientes_split[0].charAt(i));
+                        
+                        
+                        //String[] cliente = clientes_split[i].split(",");
+                        //System.out.println(cliente[1]);
+                        //System.out.println(cliente[0]);
+                       
+                        //clientes.Insertar_final(cliente[0], Integer.parseInt(cliente[1]));
+
+                    }
+
+                }
+                br.close();
+                
+                JOptionPane.showMessageDialog(null, "Exitos al Leer");
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al leer");
+
+        }
+
+        return data;
+    }
     
     public Interfaz() {
         initComponents();
     }
+    ListaSimple lista= new ListaSimple();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -201,6 +256,9 @@ public class Interfaz extends javax.swing.JFrame {
                 if (name.equals("txt")) {
                     jLabel2.setText(filepath);
                     JOptionPane.showMessageDialog(null, "Formato del Archivo: " + name);
+                    lista=leer_txt(filepath);
+                    lista.Imprimir_lista();
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "El archivo debe ser de tipo txt. No " + name);
                 }
