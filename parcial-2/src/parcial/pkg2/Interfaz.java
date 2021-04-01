@@ -113,7 +113,70 @@ public class Interfaz extends javax.swing.JFrame {
         initComponents();
     }
     ListaSimple lista= new ListaSimple();
-
+    Pila pila = new Pila();
+    
+    private static boolean isNumeric(String cadena){
+	try {
+		Integer.parseInt(cadena);
+		return true;
+	} catch (NumberFormatException nfe){
+		return false;
+	}
+    }
+    
+    public void TraduccionPostfijaArbol(RBTree persona, ListaSimple lista, Pila pila){
+        try {
+            while(lista.Es_vacia() != true){
+                NodePila e = lista.getFirst();
+           
+                if (isNumeric((String) e.getData())==true){
+                    pila.Push(e.getData());
+                }
+                else if(e.getData() == "x"){
+                    pila.Push(e.getData());
+                }
+                else if(e.getData() == persona){
+                    pila.Push(e.getData());
+                }
+                else if(e.getData() == "("){
+                    JOptionPane.showMessageDialog(null, "Error");
+                }
+                else if(e.getData()== "+" || e.getData()== "-" || e.getData()== "*" || e.getData()== "/"){
+                    if (pila.getSize() < 2){
+                        JOptionPane.showMessageDialog(null, "Error");
+                    }else{
+                        NodePila A1 = pila.getpTop();
+                        pila.Pop();
+                        NodePila A2 = pila.getpTop();
+                        pila.Pop();
+                        persona.setRoot((Node) e.getData());
+                        persona.getRoot().setLeft((Node) A1.getData());
+                        persona.getRoot().setRight((Node) A2.getData());
+                        pila.Push(persona);
+                    }    
+                }
+            }
+            if(pila.isEmpty() || pila.getSize() > 1){
+                JOptionPane.showMessageDialog(null, "Error");
+            }else{
+                NodePila e = pila.getpTop();
+                if(e.getData()!= persona){
+                    RBTree personaE = new RBTree();
+                    personaE.setRoot(e);
+                }  
+            }
+            while(pila.isEmpty() == false){
+                pila.Pop();
+            }
+            
+            
+            
+            
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Error");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
