@@ -5,19 +5,56 @@
  */
 package parcial.pkg2;
 
+import java.awt.Dimension;
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 /**
  *
- * @author Usuario
+ * @author Tomas
  */
 public class Interfaz extends javax.swing.JFrame {
 
     /**
      * Creates new form Interfaz
      */
+    
+    RBTree persona = new RBTree();//Crea arbol vacio
+    Canvas canvas = new Canvas();
+    Controller controller = new Controller(canvas, persona);
+    boolean aux =false;
+    
+    /**
+     * Esta funcion muestra el arbol
+     *
+     * @param arbol el arbol
+     * @return arbol mostrado
+     */
+    
+    public String mostrarArbol(RBTree arbol) {
+        setLayout(null);
+        JScrollPane scrollPane;       
+        Canvas canvas = new Canvas();
+        Controller controller = new Controller(canvas, arbol);
+        controller.iniciar();
+        scrollPane = new JScrollPane();
+        scrollPane.setBounds(10, 5, 20000, 6000);
+        
+        
+        JFrame ventana = new JFrame();
+        canvas.setPreferredSize(new Dimension(11000, 2000));//Se agranda la dimension de la ventana
+        
+        scrollPane.setViewportView(canvas);
+        ventana.getContentPane().add(scrollPane);
+        ventana.setDefaultCloseOperation(1);
+        ventana.setSize(1000, 900);
+        ventana.setVisible(true);
+        return "Arbol mostrado.";
+    }
+    
     public Interfaz() {
         initComponents();
     }
@@ -36,7 +73,7 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
@@ -65,10 +102,10 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("Ver Arbol");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Ver Arbol");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -94,7 +131,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(100, 100, 100)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(94, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +168,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
+                .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -142,9 +179,14 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+        if (aux) {
+            mostrarArbol(persona);
+        }else{
+            JOptionPane.showMessageDialog(null, "Todavia no ha cargado ningun archivo");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -208,7 +250,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

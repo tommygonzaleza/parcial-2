@@ -7,7 +7,7 @@ package parcial.pkg2;
 
 /**
  *
- * @author Usuario
+ * @author Tomas
  */
 public class Parcial2 {
 
