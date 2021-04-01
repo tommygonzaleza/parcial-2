@@ -82,19 +82,15 @@ public class Interfaz extends javax.swing.JFrame {
                     
                     //System.out.println(clientes_split[0]);
                     for (int i = 0; i < clientes_split[0].length(); i++) {
-                        data.Insertar_final(clientes_split[0].charAt(i));
-                        
-                        //System.out.println(clientes_split[0].charAt(i));
-                        
-                        
+                        String letter = Character.toString(clientes_split[0].charAt(i));
+                        if(!letter.equals(" ")){
+                            data.Insertar_final(letter);
+                        }
                         //String[] cliente = clientes_split[i].split(",");
                         //System.out.println(cliente[1]);
                         //System.out.println(cliente[0]);
-                       
                         //clientes.Insertar_final(cliente[0], Integer.parseInt(cliente[1]));
-
                     }
-
                 }
                 br.close();
                 
@@ -237,7 +233,15 @@ public class Interfaz extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if (aux) {
-            mostrarArbol(persona);
+            if(lista.getFirst().getData().equals("+") || lista.getFirst().getData().equals("*") || lista.getFirst().getData().equals("-") || lista.getFirst().getData().equals("/") || lista.getFirst().getData().equals("=")){
+                JOptionPane.showMessageDialog(null, "Es prefija.");
+            } else if(lista.getFirst().getpNext().getData().equals("+") || lista.getFirst().getpNext().getData().equals("*") || lista.getFirst().getpNext().getData().equals("-") || lista.getFirst().getpNext().getData().equals("/")){
+                JOptionPane.showMessageDialog(null, "Es infija.");
+            } else {
+                JOptionPane.showMessageDialog(null, lista.getFirst().getData());
+                JOptionPane.showMessageDialog(null, lista.getFirst().getpNext().getData());
+                JOptionPane.showMessageDialog(null, "Es postfija.");
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Todavia no ha cargado ningun archivo");
         }
@@ -258,7 +262,7 @@ public class Interfaz extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Formato del Archivo: " + name);
                     lista=leer_txt(filepath);
                     lista.Imprimir_lista();
-                    
+                    aux = true;
                 } else {
                     JOptionPane.showMessageDialog(null, "El archivo debe ser de tipo txt. No " + name);
                 }
