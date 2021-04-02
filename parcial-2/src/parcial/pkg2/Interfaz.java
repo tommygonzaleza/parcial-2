@@ -45,8 +45,8 @@ public class Interfaz extends javax.swing.JFrame {
         scrollPane = new JScrollPane();
         scrollPane.setBounds(10, 5, 20000, 6000);
         
-        
-        JFrame ventana = new JFrame();
+        JFrame ventana = new JFrame();        
+
         canvas.setPreferredSize(new Dimension(11000, 2000));//Se agranda la dimension de la ventana
         
         scrollPane.setViewportView(canvas);
@@ -109,7 +109,58 @@ public class Interfaz extends javax.swing.JFrame {
         initComponents();
     }
     ListaSimple lista= new ListaSimple();
-
+    Pila pila = new Pila();
+    
+    public void TraduccionPostfijaArbol(RBTree persona, ListaSimple lista, Pila pila){
+        		
+            /*
+            Pongan comentarios aquí, si quieren preguntar o decir algo.
+            	
+            */
+            //NodePila e = lista.getFirst();
+            while(!lista.Es_vacia()){
+                NodePila e = lista.getFirst();
+           
+                if (String.valueOf(e.getData()) == "0" || String.valueOf(e.getData()) == "1" || String.valueOf(e.getData()) == "2" || String.valueOf(e.getData()) == "3" || String.valueOf(e.getData()) == "4" || String.valueOf(e.getData()) == "5" || String.valueOf(e.getData()) == "6" || String.valueOf(e.getData()) == "7" || String.valueOf(e.getData()) == "8" || String.valueOf(e.getData()) == "9"){
+                    pila.Push(String.valueOf(e.getData()));
+                }
+                if(e.getData() == "x"){
+                    pila.Push(String.valueOf(e.getData()));
+                }
+                if(e.getData() == persona){
+                    pila.Push(String.valueOf(e.getData()));
+                }
+                if(String.valueOf(e.getData())== "+" || String.valueOf(e.getData())== "-" || String.valueOf(e.getData())== "*" || String.valueOf(e.getData())== "/"){
+                    if (pila.getSize() < 2){
+                        JOptionPane.showMessageDialog(null, "Error");
+                    }else{
+                        NodePila A1 = pila.getpTop();
+                        pila.Pop();
+                        NodePila A2 = pila.getpTop();
+                        pila.Pop();
+                        persona.setRoot((Node) e.getData());
+                        persona.getRoot().setLeft((Node) A1.getData());
+                        persona.getRoot().setRight((Node) A2.getData());
+                        pila.Push(persona);
+                    } 
+                    
+                }
+                e= e.getpNext();
+            }
+            if(pila.isEmpty() || pila.getSize() > 1){
+                JOptionPane.showMessageDialog(null, "Error");
+            }else{
+                NodePila e = pila.getpTop();
+                if(e.getData()!= persona){
+                    RBTree personaE = new RBTree();
+                    personaE.setRoot((Node) e.getData());
+                }  
+            }
+            while(pila.isEmpty() == false){
+                pila.Pop();
+            }    
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -232,6 +283,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        TraduccionPostfijaArbol(persona, lista, pila);
         if (aux) {
             if(lista.getFirst().getData().equals("+") || lista.getFirst().getData().equals("*") || lista.getFirst().getData().equals("-") || lista.getFirst().getData().equals("/") || lista.getFirst().getData().equals("=")){
                 JOptionPane.showMessageDialog(null, "Es prefija.");
