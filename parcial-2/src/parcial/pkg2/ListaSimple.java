@@ -161,7 +161,7 @@ public class ListaSimple {
                     pila.Pop();
                 }
                 if (String.valueOf(pila.getpTop().getData()).equals("(")) {
-                    cola.Insertar_final(String.valueOf(aux.getData()));
+                    //cola.Insertar_final(String.valueOf(aux.getData()));
                     pila.Pop();
                 } else {
                     System.out.println("Se ha detectado un error");
