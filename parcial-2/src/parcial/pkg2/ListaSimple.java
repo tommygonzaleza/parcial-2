@@ -130,16 +130,15 @@ public class ListaSimple {
         size--;
 
     }
-    public int Nivel(String a){
-        if (a.equals("+") && a.equals("-")) {
+
+    public int Nivel(String a) {
+        if (a.equals("+") ) {
             return 0;
-        }else if (a.equals("*")) {
+        } else if (a.equals("*")|| (a.equals("/"))) {
             return 1;
-        }else if (a.equals("/")) {
+        } else if (a.equals("^")) {
             return 2;
-        }else if (a.equals("^")) {
-            return 3;
-        }else{
+        } else {
             return -1;
         }
     }
@@ -148,41 +147,50 @@ public class ListaSimple {
         Pila pila = new Pila();
         ListaSimple cola = new ListaSimple();
         NodePila aux = first;
-        while (!this.Es_vacia() && aux!=null) {
+        while (!this.Es_vacia() && aux != null) {
+            //System.out.println("hola");
             if (isNumeric((String.valueOf(aux.getData())))) {
-                cola.Insertar_final(aux.getData());
+                cola.Insertar_final(String.valueOf(aux.getData()));
             } else if (isLetter((String.valueOf(aux.getData())))) {
-                cola.Insertar_final(aux.getData());
-            } else if (aux.getData().equals("(")) {
-                pila.Push(aux.getData());
-            } else if (aux.getData().equals(")")) {
-                while (!pila.Es_vacia() && !pila.getpTop().equals("(")) {
-                    cola.Insertar_final(pila.getpTop());
+                cola.Insertar_final(String.valueOf(aux.getData()));
+            } else if (String.valueOf(aux.getData()).equals("(")) {
+                pila.Push(String.valueOf(aux.getData()));
+            } else if (String.valueOf(aux.getData()).equals(")")) {
+                while (!pila.Es_vacia() && !String.valueOf(pila.getpTop().getData()).equals("(")) {
+                    cola.Insertar_final(String.valueOf(pila.getpTop().getData()));
                     pila.Pop();
                 }
-                if (pila.getpTop().getData().equals(")")) {
-                    cola.Insertar_final(aux.getData());
+                if (String.valueOf(pila.getpTop().getData()).equals("(")) {
+                    cola.Insertar_final(String.valueOf(aux.getData()));
                     pila.Pop();
                 } else {
                     System.out.println("Se ha detectado un error");
                 }
-                
-                
-            }else if (aux.getData().equals("+") || aux.getData().equals("*")
-                    ||aux.getData().equals("-") || aux.getData().equals("/"))
-                      {
-                
-                while(!pila.Es_vacia() && (Nivel(String.valueOf(pila.getpTop().getData()))>=Nivel(String.valueOf(aux.getData())))){
-                    cola.Insertar_final(aux.getData());
+
+            }  else if (String.valueOf(aux.getData()).equals("*")||String.valueOf(aux.getData()).equals("+")||String.valueOf(aux.getData()).equals("-") 
+                    || String.valueOf(aux.getData()).equals("/") ||String.valueOf(aux.getData()).equals("^")){
+                //System.out.println("hola");
+                     
+                //System.out.println("hola");
+
+                while (!pila.Es_vacia() && (Nivel(String.valueOf(pila.getpTop().getData())) >= Nivel(String.valueOf(aux.getData())))) {
+                    
+                    
+                    cola.Insertar_final(String.valueOf(pila.getpTop().getData()));
                     pila.Pop();
+                    
                 }
-                pila.Push(aux.getData());
+                pila.Push(String.valueOf(aux.getData()));
+                
             }
-            aux=aux.getpNext();
+            //cola.Imprimir_lista();
+            System.out.println(aux.getData());
+            aux = aux.getpNext();
+            
 
         }
-        while(!pila.Es_vacia()){
-            cola.Insertar_final(aux.getData());
+        while (!pila.Es_vacia()) {
+            cola.Insertar_final(String.valueOf(pila.getpTop().getData()));
             pila.Pop();
         }
         //pila.Empty();
