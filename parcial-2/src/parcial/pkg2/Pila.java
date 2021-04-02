@@ -63,12 +63,14 @@ public class Pila {
     public void setSize(int size) {
         this.size = size;
     }
+    
+    
     public void Empty(){
         this.pTop=this.pLast=null;
         this.size=0;
     }
     public void Push(Object data){
-        NodePila node =new NodePila(data);
+        NodePila node =new NodePila((String) data);
         if (isEmpty()) {
             this.pTop=this.pLast=node;
         }else{
@@ -118,6 +120,9 @@ public class Pila {
             this.Push(nodeData);
         }
         return data;
+    }
+    public boolean Es_vacia() {
+        return pTop == null;
     }
     
     

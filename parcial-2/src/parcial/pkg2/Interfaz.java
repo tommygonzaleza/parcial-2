@@ -232,6 +232,11 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        ListaSimple listas= new ListaSimple();
+        listas=lista.cambiar();
+        //lista.cambiar();
+        listas.Imprimir_lista();
+        //System.out.println(listas);
         if (aux) {
             if(lista.getFirst().getData().equals("+") || lista.getFirst().getData().equals("*") || lista.getFirst().getData().equals("-") || lista.getFirst().getData().equals("/") || lista.getFirst().getData().equals("=")){
                 JOptionPane.showMessageDialog(null, "Es prefija.");
