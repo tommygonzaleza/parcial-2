@@ -45,8 +45,8 @@ public class Interfaz extends javax.swing.JFrame {
         scrollPane = new JScrollPane();
         scrollPane.setBounds(10, 5, 20000, 6000);
         
-        
-        JFrame ventana = new JFrame();
+        JFrame ventana = new JFrame();        
+
         canvas.setPreferredSize(new Dimension(11000, 2000));//Se agranda la dimension de la ventana
         
         scrollPane.setViewportView(canvas);
@@ -115,33 +115,26 @@ public class Interfaz extends javax.swing.JFrame {
     ListaSimple lista= new ListaSimple();
     Pila pila = new Pila();
     
-    private static boolean isNumeric(String cadena){
-	try {
-		Integer.parseInt(cadena);
-		return true;
-	} catch (NumberFormatException nfe){
-		return false;
-	}
-    }
-    
     public void TraduccionPostfijaArbol(RBTree persona, ListaSimple lista, Pila pila){
-        try {
-            while(lista.Es_vacia() != true){
+        		
+            /*
+            Pongan comentarios aquí, si quieren preguntar o decir algo.
+            	
+            */
+            //NodePila e = lista.getFirst();
+            while(!lista.Es_vacia()){
                 NodePila e = lista.getFirst();
            
-                if (isNumeric((String) e.getData())==true){
-                    pila.Push(e.getData());
+                if (String.valueOf(e.getData()) == "0" || String.valueOf(e.getData()) == "1" || String.valueOf(e.getData()) == "2" || String.valueOf(e.getData()) == "3" || String.valueOf(e.getData()) == "4" || String.valueOf(e.getData()) == "5" || String.valueOf(e.getData()) == "6" || String.valueOf(e.getData()) == "7" || String.valueOf(e.getData()) == "8" || String.valueOf(e.getData()) == "9"){
+                    pila.Push(String.valueOf(e.getData()));
                 }
-                else if(e.getData() == "x"){
-                    pila.Push(e.getData());
+                if(e.getData() == "x"){
+                    pila.Push(String.valueOf(e.getData()));
                 }
-                else if(e.getData() == persona){
-                    pila.Push(e.getData());
+                if(e.getData() == persona){
+                    pila.Push(String.valueOf(e.getData()));
                 }
-                else if(e.getData() == "("){
-                    JOptionPane.showMessageDialog(null, "Error");
-                }
-                else if(e.getData()== "+" || e.getData()== "-" || e.getData()== "*" || e.getData()== "/"){
+                if(String.valueOf(e.getData())== "+" || String.valueOf(e.getData())== "-" || String.valueOf(e.getData())== "*" || String.valueOf(e.getData())== "/"){
                     if (pila.getSize() < 2){
                         JOptionPane.showMessageDialog(null, "Error");
                     }else{
@@ -153,8 +146,10 @@ public class Interfaz extends javax.swing.JFrame {
                         persona.getRoot().setLeft((Node) A1.getData());
                         persona.getRoot().setRight((Node) A2.getData());
                         pila.Push(persona);
-                    }    
+                    } 
+                    
                 }
+                e= e.getpNext();
             }
             if(pila.isEmpty() || pila.getSize() > 1){
                 JOptionPane.showMessageDialog(null, "Error");
@@ -167,14 +162,7 @@ public class Interfaz extends javax.swing.JFrame {
             }
             while(pila.isEmpty() == false){
                 pila.Pop();
-            }
-            
-            
-            
-            
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null, "Error");
-        }
+            }    
     }
     
     /**
@@ -299,6 +287,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        TraduccionPostfijaArbol(persona, lista, pila);
         if (aux) {
             mostrarArbol(persona);
         }else{
